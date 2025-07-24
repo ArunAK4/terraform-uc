@@ -46,7 +46,7 @@ jobs:
         run: |
           pwd
           aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 427521931204.dkr.ecr.ap-south-1.amazonaws.com
-          docker build -t python-kubernetes -f modules/app/ .
+          docker build -t python-kubernetes -f /home/runner/work/terraform-uc/terraform-uc/usecase-9/modules/app/ .
           docker tag python-kubernetes:latest 427521931204.dkr.ecr.ap-south-1.amazonaws.com/python-kubernetes:latest
           docker push 427521931204.dkr.ecr.ap-south-1.amazonaws.com/python-kubernetes:latest
 
