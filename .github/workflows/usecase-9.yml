@@ -1,12 +1,5 @@
 name: Terraform Github Use Case - 9
 
-# on:
-#   push:
-#     paths:
-#       - 'usecase-9/**'
-#       - '.github/workflows/usecase-9.yml'
-#     branches: main
-
 on:
   workflow_dispatch:
   push:
@@ -45,9 +38,9 @@ jobs:
 
       - name: Build and push
         run: |
-          pwd
+          cd modules/app/
           aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 427521931204.dkr.ecr.ap-south-1.amazonaws.com
-          docker build -t python-kubernetes -f ./modules/app/Dockerfile .
+          docker build -t python-kubernetes .
           docker tag python-kubernetes:latest 427521931204.dkr.ecr.ap-south-1.amazonaws.com/python-kubernetes:latest
           docker push 427521931204.dkr.ecr.ap-south-1.amazonaws.com/python-kubernetes:latest
 
