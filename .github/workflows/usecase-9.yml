@@ -77,7 +77,7 @@ jobs:
           terraform fmt -recursive
           terraform validate
           terraform plan
-          terraform destroy -auto-approve
+          terraform apply -auto-approve
 
   kubernetes:
     needs: terraform
