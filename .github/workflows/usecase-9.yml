@@ -47,7 +47,7 @@ jobs:
         run: |
           pwd
           aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 427521931204.dkr.ecr.ap-south-1.amazonaws.com
-          docker build -t python-kubernetes -f /modules/app/Dockerfile .
+          docker build -t python-kubernetes -f ./modules/app/Dockerfile .
           docker tag python-kubernetes:latest 427521931204.dkr.ecr.ap-south-1.amazonaws.com/python-kubernetes:latest
           docker push 427521931204.dkr.ecr.ap-south-1.amazonaws.com/python-kubernetes:latest
 
