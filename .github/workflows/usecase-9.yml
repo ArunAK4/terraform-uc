@@ -50,7 +50,7 @@ jobs:
           docker push 427521931204.dkr.ecr.ap-south-1.amazonaws.com/python-kubernetes:latest
 
   terraform:
-  needs: build
+    needs: build
     runs-on: ubuntu-latest
 
     defaults:
