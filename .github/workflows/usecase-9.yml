@@ -21,6 +21,34 @@ permissions:
   contents: write
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: usecase-9
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4.2.2
+        with: 
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: SetUp AWS
+        uses: aws-actions/configure-aws-credentials@v4.1.0
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.OIDC_ROLE }}
+
+      - name: Build and push
+        run: |
+          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 427521931204.dkr.ecr.ap-south-1.amazonaws.com
+          docker build -t python-kubernetes -f modules/app/ .
+          docker tag python-kubernetes:latest 427521931204.dkr.ecr.ap-south-1.amazonaws.com/python-kubernetes:latest
+          docker push 427521931204.dkr.ecr.ap-south-1.amazonaws.com/python-kubernetes:latest
+
   terraform:
     runs-on: ubuntu-latest
 
