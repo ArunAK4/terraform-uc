@@ -21,7 +21,8 @@ api = Api(app, prefix=prefix, catch_all_404s=True)
 build_swagger_config_json()
 swaggerui_blueprint = get_swaggerui_blueprint(
     prefix,
-    f'http://{domain}:{port}{prefix}/swagger-config',
+    f'{prefix}/swagger-config',
+    #f'http://{domain}:{port}{prefix}/swagger-config',
     config={
         'app_name': "Flask API",
         "layout": "BaseLayout",
@@ -72,3 +73,8 @@ api.add_resource(BookDELETEResource, '/books/<int:id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+if __name__ == "__main__":
+    # listen on all interfaces so that Docker (and EC2) can forward ports
+    app.run(host="0.0.0.0", port=5000, debug=True)
