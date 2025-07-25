@@ -29,6 +29,10 @@ resource "aws_api_gateway_integration" "proxy_http" {
   integration_http_method = "ANY"
   type                    = "HTTP_PROXY"
   uri                     = "http://${var.uri}/{proxy}"
+
+  request_parameters = {
+    "integration.request.path.proxy" = "method.request.path.proxy"
+  }
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
