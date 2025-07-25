@@ -26,7 +26,6 @@ permissions:
 
 jobs:
   build:
-    if: ${{ github.event.inputs.action != 'destroy' }}
     runs-on: ubuntu-latest
 
     defaults:
@@ -49,6 +48,7 @@ jobs:
           role-to-assume: ${{ secrets.OIDC_ROLE }}
 
       - name: Build and push
+        if: ${{ github.event.inputs.action != 'destroy' }}
         run: |
           cd modules/app/
           aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 427521931204.dkr.ecr.ap-south-1.amazonaws.com
@@ -107,6 +107,7 @@ jobs:
 
   kubernetes:
     needs: terraform
+    if: ${{ github.event.inputs.action != 'destroy' && github.event.inputs.action != 'plan' }}
     runs-on: ubuntu-latest
 
     defaults:
