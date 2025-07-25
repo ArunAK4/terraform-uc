@@ -4,11 +4,11 @@ variable "vpc_id" {
 }
 
 variable "alb_sg_name" {
-  type = string
+  type        = string
   description = "ALB Sg name"
 }
 
 variable "sg_name" {
-  type = string
+  type        = string
   description = "ECS fargate SG name"
 }
