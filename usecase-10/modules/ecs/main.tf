@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "ecs" {
         logDriver = "awslogs"
         options = {
           awslogs-group         = "/ecs/${var.cluster_name}-${each.key}"
-          awslogs-region        = var.aws_region
+          awslogs-region        = "ap-south-1"
           awslogs-stream-prefix = "ecs"
         }
       }
