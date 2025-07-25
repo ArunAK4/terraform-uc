@@ -22,7 +22,7 @@ resource "aws_api_gateway_integration" "proxy_http" {
   http_method             = aws_api_gateway_method.get.http_method
   integration_http_method = "ANY"
   type                    = "HTTP_PROXY"
-  uri                     = http://${var.uri}
+  uri                     = "http://${var.uri}"
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
