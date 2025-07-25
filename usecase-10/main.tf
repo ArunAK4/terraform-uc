@@ -1,9 +1,3 @@
-module "ecr" {
-  source    = "./modules/ecr"
-  repo_name = var.ecr_repo_name
-}
-
-
 module "vpc" {
   source          = "./modules/vpc"
   vpc_name        = var.vpc_name
@@ -22,7 +16,7 @@ module "sg" {
 
 
 module "alb" {
-  source         = "./modules/alb"
+  source         = "./modules/lb"
   name           = "uc8-alb"
   vpc_id         = module.vpc.vpc_id
   public_subnets = module.vpc.public_subnet_ids
