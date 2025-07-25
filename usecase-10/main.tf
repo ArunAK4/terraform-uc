@@ -48,3 +48,11 @@ module "ecs_cluster" {
     }
   }
 }
+
+module "api_gateway" {
+  source               = "./modules/api-gateway"
+  api_name             = var.api_name
+  stage_name           = "dev"
+  resource_path        = "/{proxy+}"
+  uri = module.alb.alb_dns_name
+}
