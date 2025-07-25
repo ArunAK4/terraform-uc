@@ -33,3 +33,11 @@ variable "cluster_name" {
 variable "execution_role_arn" {
   type = string
 }
+
+variable "patients_repo_url" {
+  type = string
+}
+
+variable "appointment_repo_url" {
+  type = string
+}
