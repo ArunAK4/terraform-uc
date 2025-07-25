@@ -14,6 +14,12 @@ resource "aws_api_gateway_method" "get" {
   resource_id   = aws_api_gateway_resource.proxy.id
   http_method   = "ANY"
   authorization = "NONE"
+  
+  # to avoid 500 internal server error
+  request_parameters = {
+    "method.request.path.proxy" = true
+  }
+
 }
 
 resource "aws_api_gateway_integration" "proxy_http" {
