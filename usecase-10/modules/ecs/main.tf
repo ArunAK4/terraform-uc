@@ -31,6 +31,7 @@ resource "aws_ecs_task_definition" "ecs" {
           awslogs-group         = "/ecs/${var.cluster_name}-${each.key}"
           awslogs-region        = "ap-south-1"
           awslogs-stream-prefix = "ecs"
+          awslogs-create-group  = "true"
         }
       }
     }
