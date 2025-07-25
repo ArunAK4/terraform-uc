@@ -90,15 +90,15 @@ jobs:
           terraform validate
 
       - name: Terraform Plan
-        if: ${{ github.event.input.action == 'plan' || github.event.input.action == 'apply' }}
+        if: ${{ github.event.inputs.action == 'plan' || github.event.inputs.action == 'apply' }}
         run: terraform plan
 
       - name: Terraform Apply
-        if: ${{ github.event.input.action == 'apply' }}
+        if: ${{ github.event.inputs.action == 'apply' }}
         run: terraform apply -auto-approve
 
       - name: Terraform Destroy
-        if: ${{ github.event.input.action == 'destroy' }}
+        if: ${{ github.event.inputs.action == 'destroy' }}
         run: |
           aws eks update-kubeconfig --region ap-south-1 --name eks-cluster
           kubectl apply -f ./modules/app/service-lb-destroy.yaml
