@@ -41,3 +41,7 @@ variable "patients_repo_url" {
 variable "appointment_repo_url" {
   type = string
 }
+
+variable "api_name" {
+  type = string
+}
