@@ -24,7 +24,15 @@ resource "aws_ecs_task_definition" "ecs" {
           protocol      = "tcp"
         }
       ]
-      essential = true
+      essential = true 
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = "/ecs/${var.cluster_name}-${each.key}"
+          awslogs-region        = var.aws_region
+          awslogs-stream-prefix = "ecs"
+        }
+      }
     }
   ])
 }
