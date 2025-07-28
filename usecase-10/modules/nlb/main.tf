@@ -2,6 +2,7 @@ resource "aws_lb" "nlb" {
   name               = var.nlb_name
   internal           = false
   load_balancer_type = "network"
+  security_groups    = [var.nlb_sg_id]
   subnets            = var.subnet_ids
 }
 
