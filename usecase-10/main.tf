@@ -35,7 +35,7 @@ module "alb" {
 module "ecs_cluster" {
   source             = "./modules/ecs"
   cluster_name       = var.cluster_name
-  execution _role_arn = var.execution_role_arn
+  execution_role_arn = var.execution_role_arn
   task_arn_role      = var.execution_role_arn
   subnets            = module.vpc.private_subnet_ids
   security_groups    = [module.sg.sg_id]
