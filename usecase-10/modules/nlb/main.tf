@@ -30,3 +30,9 @@ resource "aws_lb_listener" "nlb_listener" {
     target_group_arn = aws_lb_target_group.nlb_tg.arn
   }
 }
+
+resource "aws_api_gateway_vpc_link" "example" {
+  name        = "uc10-vpc-link"
+  description = "VPC link for API gateway"
+  target_arns = [aws_lb.nlb.arn]
+}
