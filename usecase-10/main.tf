@@ -30,7 +30,7 @@ module "alb" {
   source         = "./modules/alb"
   name           = "uc10-alb"
   vpc_id         = module.vpc.vpc_id
-  public_subnets = module.vpc.public_subnet_ids
+  public_subnets = module.vpc.private_subnet_ids
   alb_sg_id      = module.sg.alb_sg_id
 }
 
