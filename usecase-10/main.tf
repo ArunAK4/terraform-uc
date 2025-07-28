@@ -23,6 +23,7 @@ module "nlb" {
   target_group_name  = "nlb-to-alb"
   nlb_sg_id          = module.sg.nlb_sg_id
   alb_id             = module.alb.alb_id
+  nlb_target_group_arn = module.nlb.nlb_tg_arn
 }
 
 module "alb" {
