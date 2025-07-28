@@ -17,3 +17,8 @@ variable "target_group_name" {
   type        = string
   description = "Name of the target group"
 }
+
+variable "nlb_sg_id" {
+  description = "Security group ID for the ALB"
+  type        = string
+}
