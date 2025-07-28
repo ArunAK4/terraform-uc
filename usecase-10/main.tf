@@ -11,6 +11,7 @@ module "sg" {
   source      = "./modules/security-group"
   vpc_id      = module.vpc.vpc_id
   alb_sg_name = var.alb_sg_name
+  nlb_sg_name = var.nlb_sg_name
   sg_name     = var.sg_name
 }
 
@@ -20,6 +21,7 @@ module "nlb" {
   subnet_ids         = module.vpc.private_subnet_ids
   vpc_id             = module.vpc.vpc_id
   target_group_name  = "nlb-to-alb"
+  nlb_sg_id          = module.sg.nlb_sg_id
 }
 
 module "alb" {
@@ -33,7 +35,7 @@ module "alb" {
 module "ecs_cluster" {
   source             = "./modules/ecs"
   cluster_name       = var.cluster_name
-  execution_role_arn = var.execution_role_arn
+  execution _role_arn = var.execution_role_arn
   task_arn_role      = var.execution_role_arn
   subnets            = module.vpc.private_subnet_ids
   security_groups    = [module.sg.sg_id]

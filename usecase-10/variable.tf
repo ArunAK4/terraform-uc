@@ -2,6 +2,10 @@ variable "alb_sg_name" {
   type = string
 }
 
+variable "nlb_sg_name" {
+  type = string
+}
+
 variable "sg_name" {
   type = string
 }
