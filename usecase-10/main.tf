@@ -14,10 +14,17 @@ module "sg" {
   sg_name     = var.sg_name
 }
 
+module "nlb" {
+  source             = "./modules/nlb"
+  nlb_name           = "uc10-nlb"
+  subnet_ids         = module.vpc.private_subnet_ids
+  vpc_id             = module.vpc.vpc_id
+  target_group_name  = "nlb-to-alb"
+}
 
 module "alb" {
-  source         = "./modules/lb"
-  name           = "uc8-alb"
+  source         = "./modules/alb"
+  name           = "uc10-alb"
   vpc_id         = module.vpc.vpc_id
   public_subnets = module.vpc.public_subnet_ids
   alb_sg_id      = module.sg.alb_sg_id

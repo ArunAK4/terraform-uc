@@ -64,6 +64,27 @@ resource "aws_lb_listener" "http" {
   }
 }
 
+resource "aws_lb_listener_rule" "alb" {
+  listener_arn = aws_lb_listener.http.arn
+  priority     = 1
+
+  action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "OK"
+      status_code  = "200"
+    }
+  }
+
+  condition {
+    path_pattern {
+      values = ["/alb"]
+    }
+  }
+}
+
 
 resource "aws_lb_listener_rule" "patients" {
   listener_arn = aws_lb_listener.http.arn
