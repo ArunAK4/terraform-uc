@@ -1,19 +1,20 @@
-resource "aws_cognito_user_pool" "this" {
-  name = "var.user_pool_name"
+
+resource "aws_cognito_user_pool" "default" {
+  name = "default-user-pool"
 }
 
-resource "aws_cognito_user_pool_client" "this" {
-  name         = "${var.user_pool_name}-client"
-  user_pool_id = aws_cognito_user_pool.this.id
+resource "aws_cognito_user_pool_client" "default" {
+  name         = "default-client"
+  user_pool_id = aws_cognito_user_pool.default.id
 
-  explicit_auth_flows = [
-    "ALLOW_USER_SRP_AUTH",
-    "ALLOW_REFRESH_TOKEN_AUTH"
-  ]
-
-  callback_urls = [var.callback_url]
   allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_flows = ["code"]
-  allowed_oauth_scopes = ["email", "openid", "profile"]
-  supported_identity_providers = ["COGNITO"]
+  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_scopes                 = ["email"]
+  supported_identity_providers         = ["COGNITO"]
+  callback_urls                        = [var.callback_url]
+}
+
+resource "aws_cognito_user_pool_domain" "default" {
+  domain       = var.domain_prefix
+  user_pool_id = aws_cognito_user_pool.default.id
 }
