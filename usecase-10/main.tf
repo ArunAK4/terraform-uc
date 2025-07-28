@@ -22,6 +22,7 @@ module "nlb" {
   vpc_id             = module.vpc.vpc_id
   target_group_name  = "nlb-to-alb"
   nlb_sg_id          = module.sg.nlb_sg_id
+  alb_id             = module.alb.alb_id
 }
 
 module "alb" {

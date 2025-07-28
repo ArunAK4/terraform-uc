@@ -22,3 +22,11 @@ variable "nlb_sg_id" {
   description = "Security group ID for the ALB"
   type        = string
 }
+
+variable "nlb_target_group_arn" {
+    type = string
+}
+
+variable "alb_id" {
+    type = string
+}

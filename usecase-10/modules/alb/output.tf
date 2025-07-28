@@ -10,3 +10,7 @@ output "appointments_tg_arn" {
 output "patients_tg_arn" {
   value = aws_lb_target_group.patients.arn
 }
+
+output "alb_id" {
+  value = aws_lb.this.id
+}
