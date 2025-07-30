@@ -1,10 +1,10 @@
 resource "aws_cloudwatch_log_group" "cloudtrail_log_group" {
-  name              = "/aws/cloudtrail/narendiran-cloudtrail"
+  name              = "/aws/cloudtrail/usecase-11-cloudtrail"
   retention_in_days = 30 
 }
 
 resource "aws_cloudwatch_log_metric_filter" "login_filter" {
-  name           = "narendiran-login"
+  name           = "usecase-11-login"
   log_group_name = aws_cloudwatch_log_group.cloudtrail_log_group.name
   pattern        = "{ $.eventName = \"ConsoleLogin\" && $.responseElements.ConsoleLogin = \"Success\" }"
 
