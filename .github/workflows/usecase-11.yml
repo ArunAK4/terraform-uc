@@ -35,7 +35,7 @@ jobs:
           role-to-assume: ${{ secrets.OIDC_ROLE }}
       - name: Empty S3 bucket
         if: ${{ github.event.inputs.action == 'destroy' }}
-        run: aws s3 rm s3://cloudtrail-logs-bucket-9080 --recursive
+        run: aws s3 ls s3://cloudtrail-logs-bucket-9080 >/dev/null 2>&1 && aws s3 rm s3://cloudtrail-logs-bucket-9080 --recursive || echo "Bucket does not exist. Skipping."
         
   terraform:
     needs: pre-run
