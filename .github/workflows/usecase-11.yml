@@ -62,7 +62,7 @@ jobs:
 
       - name: Pull terraform.tfvars from S3
         run: |
-          aws s3 cp s3://terraform-usecases-batch6/env/usecase-10/terraform.tfvars .
+          aws s3 cp s3://terraform-usecases-batch6/env/usecase-11/terraform.tfvars .
 
       - name: Initiate terraform
         run: |
