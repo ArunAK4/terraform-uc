@@ -1,0 +1,71 @@
+name: Terraform Github Use Case - 12
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Terraform action to be performed"
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+        
+  push:
+    paths:
+      - 'usecase-12/**'
+      - .github/workflows/usecase-12.yml'
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:     
+  terraform:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: usecase-12
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4.2.2
+        with: 
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: SetUp AWS
+        uses: aws-actions/configure-aws-credentials@v4.1.0
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.OIDC_ROLE }}
+
+      - name: Pull terraform.tfvars from S3
+        run: |
+          aws s3 cp s3://terraform-usecases-batch6/env/usecase-12/terraform.tfvars .
+
+      - name: Initiate terraform
+        run: |
+          terraform init
+          terraform fmt -recursive
+          terraform validate
+
+      - name: Terraform Plan
+        if: ${{ github.event.inputs.action == 'plan' || github.event.inputs.action == 'apply' }}
+        run: terraform plan
+
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.action == 'apply' }}
+        run: terraform apply -auto-approve
+
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.action == 'destroy' }}
+        run: |
+          terraform destroy -auto-approve
