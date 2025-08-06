@@ -8,7 +8,7 @@ module "lambda" {
 }
 
 module "api_gateway" {
-  source = "./modules/apigateway"
+  source = "./modules/api-gateway"
   lambda_integration_uri_arn = module.lambda.lambda_integration_uri_arn
   aws_cognito_arn = module.aws_cognito.aws_cognito_arn
   cognito_user_pool_id = module.aws_cognito.cognito_user_pool_id
